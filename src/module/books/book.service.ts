@@ -13,4 +13,6 @@ export class BookService {
   public async findAll() {
     return this.bookRepository.find();
   }
+
+  // обычно можно еще получить не только весь список, но и одну книгу
 }
