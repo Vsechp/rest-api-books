@@ -13,6 +13,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
+    // Please get rid of `any` here
   async validate(payload: any) {
     const user = await this.userService.validateUser(payload);
     if (!user) {
@@ -22,9 +23,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 }
 
+// better to be in different file
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
-    handleRequest(err, user, info) {
+    public handleRequest(err, user, info) {
         if (err || !user) {
             throw err || new UnauthorizedException();
         }

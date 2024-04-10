@@ -13,7 +13,7 @@ import { BookModule } from './module/books/book.module';
       password: 'test',
       database: 'postgres',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      synchronize: true, // maybe this leads to issues with migrations?
     }),
     UserModule,
     BookModule

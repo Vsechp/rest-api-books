@@ -7,6 +7,6 @@ console.log(process.env.JWT_SECRET);
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  await app.listen(3000); // this should be
 }
 bootstrap();

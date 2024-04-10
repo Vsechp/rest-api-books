@@ -5,12 +5,12 @@ import { Book } from './book.entity';
 
 @Injectable()
 export class BookService {
-  constructor(
+  public constructor(
     @InjectRepository(Book)
     private bookRepository: Repository<Book>,
   ) {}
 
-  async findAll() {
+  public async findAll() {
     return this.bookRepository.find();
   }
 }

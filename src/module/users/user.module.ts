@@ -12,7 +12,7 @@ import { PassportModule } from '@nestjs/passport';
     TypeOrmModule.forFeature([User]),
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
+      secret: process.env.JWT_SECRET, // what will happen if JWT_SECRET is bad | empty?
       signOptions: { expiresIn: '60m' },
     }),
   ],
