@@ -24,6 +24,7 @@ export class UserService {
         return user;
     }
 
+    // not used anywhere
     public async login(user: any) {
         const payload = {username: user.username, sub: user.userId};
         return {

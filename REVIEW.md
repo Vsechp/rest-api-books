@@ -12,6 +12,7 @@ docker-compose
 package.json
 * не хорошо использовать ts-node для запуска, лучше чистый node
 * похоже ты создавал проект руками, есть более простой путь - https://docs.nestjs.com/first-steps
+* старая версия typescript
 
 sample.env
 * не было. я добавил

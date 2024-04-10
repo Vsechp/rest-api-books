@@ -13,7 +13,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-    // Please get rid of `any` here
+  // Please get rid of `any` here
+  // // not used anywhere
   async validate(payload: any) {
     const user = await this.userService.validateUser(payload);
     if (!user) {
