@@ -2,18 +2,20 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './module/users/user.module';
 import { BookModule } from './module/books/book.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import typeormConfig from './config/typeorm';
+
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'test',
-      database: 'postgres',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true, // maybe this leads to issues with migrations? google it please.
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [typeormConfig]
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => configService.get('typeorm')
     }),
     UserModule,
     BookModule

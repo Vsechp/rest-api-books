@@ -1,6 +1,20 @@
-// No validation here - should have validation (see npm class-validator)
-
+import { ApiProperty } from '@nestjs/swagger';
+import { IsEmail, IsNotEmpty , Length} from 'class-validator';
 export class LoginUserDto {
+    @ApiProperty({
+        example: 'test@mail.com',
+        required: true,
+
+     })
+    @IsEmail()
     email: string;
+
+    @ApiProperty({
+        example: '1234578910',
+        required: true
+     })
+     @IsNotEmpty()
+     @Length(8, 20)
     password: string;
 }
+

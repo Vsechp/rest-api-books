@@ -14,5 +14,16 @@ export class BookService {
     return this.bookRepository.find();
   }
 
-  // обычно можно еще получить не только весь список, но и одну книгу
+  public async findOne(id: number) {
+    return this.bookRepository.findOne({ where: { id } });
+  }
+
+  public async findByAuthor(author: string) { 
+    return this.bookRepository.findOne({ where: { author } }); // added finding book by id, author and title
+  }
+
+  public async findByTitle(title: string) { 
+    return this.bookRepository.findOne({ where: { title} });
+  }
+  
 }

@@ -1,6 +1,6 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class InsertBooksIntoBook1612544293849 implements MigrationInterface {
+export class InsertBooksIntoBook1612544293850 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
             INSERT INTO book (title, author) VALUES
@@ -29,7 +29,7 @@ export class InsertBooksIntoBook1612544293849 implements MigrationInterface {
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            DROP TABLE books;
+            DROP TABLE book;
         `);
     }
 }

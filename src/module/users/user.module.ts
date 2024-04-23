@@ -19,4 +19,10 @@ import { PassportModule } from '@nestjs/passport';
   providers: [UserService, JwtStrategy],
   controllers: [UserController],
 })
-export class UserModule {}
+export class UserModule {
+  сonstructor() {
+    if (!process.env.JWT_SECRET) {
+      throw new Error('JWT_SECRET is not defined'); // added check for JWT_SECRET
+    }
+}
+}
