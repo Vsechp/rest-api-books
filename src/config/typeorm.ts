@@ -1,21 +1,19 @@
-import { registerAs } from "@nestjs/config";
-import { config as dotenvConfig } from 'dotenv';
-import { DataSource, DataSourceOptions } from "typeorm";
+import { createConnection, ConnectionOptions } from 'typeorm';
 
-dotenvConfig({ path: '.env' });
+const connectionOptions: ConnectionOptions = {
+  type: 'postgres',
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT),
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  migrations: [__dirname + '/../migration/**/*{.ts,.js}'],
+  synchronize: false,
+};
 
-const config = {
-    type: 'postgres',
-    host: `${process.env.DB_HOST}`,
-    port: `${process.env.DB_PORT}`,
-    username: `${process.env.DB_USER}`,
-    password: `${process.env.DB_PASS}`,
-    database: `${process.env.DB_NAME}`,
-    entities: ["dist/**/*.entity{.ts,.js}"],
-    migrations: ["dist/migration/*{.ts,.js}"],
-    autoLoadEntities: true,
-    synchronize: false,
-}
+createConnection(connectionOptions)
+  .then(() => console.log('Successfully connected to the database'))
+  .catch((error) => console.error('Error connecting to the database', error));
 
-export default registerAs('typeorm', () => config)
-export const connectionSource = new DataSource(config as DataSourceOptions);
+export default connectionOptions;

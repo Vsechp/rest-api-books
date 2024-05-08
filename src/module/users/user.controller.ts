@@ -28,14 +28,13 @@ export class UserController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiBody({ type: LoginUserDto })
   @Post('login')
-  async login(@Body() loginUserDto: LoginUserDto, @Res({ passthrough: true }) response: Response) {
+  async login(@Body() loginUserDto: LoginUserDto) {
     const user = await this.userService.validateUser(loginUserDto);
     if (!user) {
       throw new UnauthorizedException();
     }
     const payload = { email: user.email, sub: user.id };
     const access_token = this.jwtService.sign(payload);
-    response.cookie('access_token', access_token, { httpOnly: true });
-    return { status: 'success' };
+    return { access_token };
   }
 }

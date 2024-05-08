@@ -7,6 +7,12 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASS: test
+      DB_NAME: postgres
 
   db:
     image: postgres:13
@@ -16,3 +22,23 @@ services:
       POSTGRES_DB: postgres
     ports:
       - "5432:5432"
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./datasources:/etc/grafana/provisioning/datasources
+    ports:
+      - 4000:3000 
+    environment:
+      GF_LOG_LEVEL: error
+
+volumes:
+  grafana-storage:
